@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1300807019850703555}
   - component: {fileID: 3168150139361884059}
-  - component: {fileID: 3998782104846097634}
   - component: {fileID: 6425141068534229535}
+  - component: {fileID: 1838150246780771682}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -93,20 +93,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &3998782104846097634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5047353911280412415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a80caf173977742aa243f66d864156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 2
-  myCollider: {fileID: 6425141068534229535}
 --- !u!60 &6425141068534229535
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -157,3 +143,17 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 1
+--- !u!114 &1838150246780771682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5047353911280412415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3421c45039e9d4199c8bdef334eddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  speed: 2
+  myCollider: {fileID: 6425141068534229535}
