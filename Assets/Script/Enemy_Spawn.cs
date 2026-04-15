@@ -8,24 +8,50 @@ using UnityEngine;
 public class Enemy_Spawn : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private RandomPos randomPos;
-    [SerializeField] private EnemyPool enemyPool;
-    [SerializeField] private float Spaww_Rate=3f;
+    private RandomPos randomPos;
+    [SerializeField] private ObjectPool enemyPool;
+    [SerializeField] private float xRange;
+    [SerializeField] private float yRange;
+    [SerializeField] private float spawnTime = 3f;
     private bool IsSpawnReady=true;
-    void Start(){}
 
-    // Update is called once per frame
-    void Update()
-    {        if(IsSpawnReady)
+    void OnEnable()
+    {
+        EventBroker.somethingIsShot += ReturnObject;
+    }
+
+    void OnDisable()
+    {
+        EventBroker.somethingIsShot -= ReturnObject;
+    }
+
+    void Awake()
+    {
+        randomPos = new RandomPos(xRange, yRange);
+    }
+
+    void Start()
+    {
         StartCoroutine(Spawn_Enemy());
     }
-    IEnumerator Spawn_Enemy(){
-        IsSpawnReady=false;
-        GameObject enemy=enemyPool.GetEnemy();
-        enemy.transform.position=randomPos.RandomOnPerimeter();
-        yield return new WaitForSeconds(Spaww_Rate);
-        IsSpawnReady=true;
+
+    void Update()
+    {        
+        
+    }
+    IEnumerator Spawn_Enemy() {
+        while (IsSpawnReady)
+        {
+            IsSpawnReady=false;
+            GameObject enemy = enemyPool.GetObject();
+            enemy.transform.position=randomPos.RandomOnPerimeter();
+            yield return new WaitForSeconds(spawnTime);
+            IsSpawnReady=true;
+        }
     }
 
-
+    void ReturnObject(Collider2D collider)
+    {
+        enemyPool.ReturnObject(collider.gameObject);
+    }
 }

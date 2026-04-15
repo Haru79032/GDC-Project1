@@ -9,20 +9,32 @@ public class GunManager : MonoBehaviour
     [SerializeField] private Transform firePosition;    
     [SerializeField] private LineRenderer projectile;
     [SerializeField] private GameObject aimingLazer;
-    [SerializeField] private float lazerTime;   
+    [SerializeField] private ObjectPool pool;   
+    [SerializeField] private float lazerTime;
+    [SerializeField] private float bulletSpeed = 5f;
     private Camera mainCamera;
     private LineRenderer lazer;
-    private Vector2 origin;
+
+    void OnEnable()
+    {
+        EventBroker.onBulletHitSomething += returnBullet;
+    }
+
+    void OnDisable()
+    {
+        EventBroker.onBulletHitSomething -= returnBullet;
+    }
+
     void Start()
     {
         lazer = aimingLazer.GetComponent<LineRenderer>();
         mainCamera = Camera.main;
-        origin = firePosition.position;
     }
 
     void Update()
     {
         UpdateAiming();
+
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
         {
             Shoot();
@@ -35,8 +47,8 @@ public class GunManager : MonoBehaviour
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, Camera.main.nearClipPlane));
         mouseWorldPos.z = 0f;
 
+        Vector2 origin = firePosition.position; 
         Vector2 centerPos = transform.parent.position;
-        Vector2 origin = firePosition.position;
         Vector2 direction = ((Vector2)mouseWorldPos - centerPos).normalized;
 
         RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction);
@@ -60,33 +72,15 @@ public class GunManager : MonoBehaviour
         mouseWorldPos.z = 0f;
 
         Vector2 centerPos = transform.parent.position;
-        Vector2 origin = firePosition.position;
         Vector2 direction = ((Vector2)mouseWorldPos - centerPos).normalized;
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction);
-
-        projectile.SetPosition(0, origin);
-
-        if (hitInfo)
-        {
-            projectile.SetPosition(1, hitInfo.point);
-            
-            if (hitInfo.collider.CompareTag("Enemy"))
-            {
-                EventBroker.somethingIsShot?.Invoke(hitInfo.collider);
-            }
-        }
-        else
-        {
-            projectile.SetPosition(1, origin + direction * 100f);
-        }
-        
-        StartCoroutine(ShootLazerEffect());
+        GameObject obj = pool.GetObject();
+        obj.GetComponent<Transform>().position = firePosition.position; 
+        obj.GetComponent<Rigidbody2D>().linearVelocity = direction * bulletSpeed;
     }
-    IEnumerator ShootLazerEffect()
+
+    void returnBullet(Collider2D bullet)
     {
-        projectile.enabled = true;
-        yield return new WaitForSeconds(lazerTime);
-        projectile.enabled = false;
+        pool.ReturnObject(bullet.gameObject);
     }
 }

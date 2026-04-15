@@ -1,35 +1,23 @@
-using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private float Speed=2f;
-    UnityEngine.Vector3 direction;
-    private EnemyPool enemyPool;
+    [SerializeField] private float speed=2f;
+    [SerializeField] private Collider2D myCollider;
+    private Vector2 targetPos;
+
     void Start()
     {
-        enemyPool = FindAnyObjectByType<EnemyPool>();
-        direction = (UnityEngine.Vector3.zero - transform.position).normalized;
+        targetPos = new Vector2(0, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position += direction * Speed * Time.deltaTime;
-    }
-    public void ReturnToPool()
-    {
-        if (enemyPool != null)
-            enemyPool.ReturnEnemy(gameObject);
-    }
-    void OnBecameInvisible()
-    {
-        ReturnToPool();
-    }
-    void OnBecameVisible()
-    {
-        direction = (UnityEngine.Vector3.zero - transform.position).normalized;
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+
+        if (transform.position == new Vector3(0, 0, 0))
+        {
+            EventBroker.somethingIsShot?.Invoke(myCollider);
+        }
     }
 }
