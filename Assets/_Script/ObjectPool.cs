@@ -1,39 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPool : MonoBehaviour
+public class ObjectPool : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private GameObject Enemy_Prefab;
+    [SerializeField] private GameObject prefab;
     [SerializeField] private int Pool_Size=30;
-    private Queue<GameObject> enemyPool;
+    private Queue<GameObject> pool;
     void Awake()
     {
-        enemyPool=new Queue<GameObject>();
+        pool=new Queue<GameObject>();
         for(int i=0;i<Pool_Size;i++)
         {
-            GameObject enemy=Instantiate(Enemy_Prefab);
+            GameObject enemy=Instantiate(prefab);
             enemy.SetActive(false);
-            enemyPool.Enqueue(enemy);
+            pool.Enqueue(enemy);
         }
     }
-    public GameObject GetEnemy()
+    public GameObject GetObject()
     {
-        if(enemyPool.Count>0)
+        if(pool.Count>0)
         {
-            GameObject enemy=enemyPool.Dequeue();
+            GameObject enemy=pool.Dequeue();
             enemy.SetActive(true);
             return enemy;
         }
         else
         {
-            GameObject enemy=Instantiate(Enemy_Prefab);
+            GameObject enemy=Instantiate(prefab);
             return enemy;
         }
     }
-    public void ReturnEnemy(GameObject enemy)
+    public void ReturnObject(GameObject enemy)
     {
         enemy.SetActive(false);
-        enemyPool.Enqueue(enemy);
+        pool.Enqueue(enemy);
     }  
 }
