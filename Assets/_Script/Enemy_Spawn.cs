@@ -10,8 +10,7 @@ public class Enemy_Spawn : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private RandomPos randomPos;
     [SerializeField] private ObjectPool enemyPool;
-    [SerializeField] private float xRange;
-    [SerializeField] private float yRange;
+    [SerializeField] private float radius;
     [SerializeField] private float spawnTime = 3f;
     private bool IsSpawnReady=true;
 
@@ -29,7 +28,7 @@ public class Enemy_Spawn : MonoBehaviour
 
     void Awake()
     {
-        randomPos = new RandomPos(xRange, yRange);
+        randomPos = new RandomPos(radius);
     }
 
     void Start()
