@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 
-public class Enemy_Spawn : MonoBehaviour
+public class EnemySpawn : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private RandomPos randomPos;
@@ -17,13 +17,11 @@ public class Enemy_Spawn : MonoBehaviour
     void OnEnable()
     {
         EventBroker.somethingIsShot += ReturnObject;
-        EventBroker.onBombDeath += ReturnObject;
     }
 
     void OnDisable()
     {
         EventBroker.somethingIsShot -= ReturnObject;
-        EventBroker.onBombDeath -= ReturnObject;
     }
 
     void Awake()
