@@ -5,8 +5,21 @@ public class Bullet : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Enemy is shot"); 
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy is shot");
+            EventBroker.onBulletHitSomething?.Invoke(myCollider);
+            EventBroker.somethingIsShot?.Invoke(collision);
+        }
+        if (collision.gameObject.CompareTag("Enemy3")){
+            Debug.Log("Bomb is shot");
+            EventBroker.onBombDeath?.Invoke(myCollider);
+            EventBroker.somethingIsShot?.Invoke(collision);
+            
+        }
+    }
+    void OnBecameInvisible()
+    {
         EventBroker.onBulletHitSomething?.Invoke(myCollider);
-        EventBroker.somethingIsShot?.Invoke(collision);
     }
 }

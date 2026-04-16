@@ -18,11 +18,13 @@ public class Enemy_Spawn : MonoBehaviour
     void OnEnable()
     {
         EventBroker.somethingIsShot += ReturnObject;
+        EventBroker.onBombDeath += ReturnObject;
     }
 
     void OnDisable()
     {
         EventBroker.somethingIsShot -= ReturnObject;
+        EventBroker.onBombDeath -= ReturnObject;
     }
 
     void Awake()
