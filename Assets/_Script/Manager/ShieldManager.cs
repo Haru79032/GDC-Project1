@@ -6,7 +6,6 @@ public class ShieldManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Fragment"))
         {
-            Debug.Log("Shield blocked something");
             EventBroker.somethingIsBlocked?.Invoke(collision);
         }
     }

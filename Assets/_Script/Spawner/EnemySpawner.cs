@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 
-public class EnemySpawn : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private RandomPos randomPos;
@@ -16,12 +16,16 @@ public class EnemySpawn : MonoBehaviour
 
     void OnEnable()
     {
-        EventBroker.somethingIsShot += ReturnObject;
+        EventBroker.somethingIsShot += ReturnEnemy;
+        EventBroker.onEnemyHitPlayer += ReturnEnemy;
+        EventBroker.onEnemyReachedTarget += ReturnEnemy;
     }
 
     void OnDisable()
     {
-        EventBroker.somethingIsShot -= ReturnObject;
+        EventBroker.somethingIsShot -= ReturnEnemy;
+        EventBroker.onEnemyHitPlayer -= ReturnEnemy;
+        EventBroker.onEnemyReachedTarget -= ReturnEnemy;
     }
 
     void Awake()
@@ -49,8 +53,11 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
-    void ReturnObject(Collider2D collider)
+    void ReturnEnemy(Collider2D collider)
     {
-        enemyPool.ReturnObject(collider.gameObject);
+        if (!collider.gameObject.CompareTag("Fragment"))
+        {
+            enemyPool.ReturnObject(collider.gameObject);
+        }
     }
 }

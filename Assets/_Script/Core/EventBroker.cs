@@ -8,10 +8,16 @@ public static class EventBroker
     public static Action<Collider2D> somethingIsBlocked;
     public static Action<Collider2D> onBulletHitSomething;
     public static Action<Vector3> onBombDeath;
+    public static Action<Collider2D> onEnemyHitPlayer;
     #endregion
 
     #region OUT OF SCREEN CHECK
     public static Action<Collider2D> onBulletOutOfScreen;
     public static Action<Collider2D> onFragmentOutOfScreen;
+    public static Action<Collider2D> onEnemyReachedTarget;
+    #endregion
+
+    #region MAIN GAMELOOP EVENTS
+    public static Action onGameOver;
     #endregion
 }

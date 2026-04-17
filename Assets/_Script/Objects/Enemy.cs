@@ -14,10 +14,9 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
-
         if (transform.position == new Vector3(0, 0, 0))
         {
-            EventBroker.somethingIsShot?.Invoke(myCollider);
+            EventBroker.onEnemyReachedTarget?.Invoke(myCollider);
         }
     }
 }
