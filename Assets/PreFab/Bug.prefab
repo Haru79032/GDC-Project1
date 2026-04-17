@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6425141068534229535}
   - component: {fileID: 1838150246780771682}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Enemy
+  m_Name: Bug
+  m_TagString: Bug
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,5 +155,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3421c45039e9d4199c8bdef334eddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 3
+  defaultSpeed: 2
   myCollider: {fileID: 6425141068534229535}

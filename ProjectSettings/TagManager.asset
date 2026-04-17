@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Enemy
-  - Enemy3
+  - Bug
+  - Error
+  - Bomb
   - Fragment
-  - Enemy2
   layers:
   - Default
   - TransparentFX

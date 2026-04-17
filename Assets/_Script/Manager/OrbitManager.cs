@@ -9,13 +9,24 @@ public class OrbitManager : MonoBehaviour
     
     [SerializeField] private GameObject _shield;
     public Camera mainCamera;
-    void Start()
+    private bool isPlaying;
+    void Awake()
     {
-        
+        isPlaying = true;
     }
+    void OnEnable()
+    {
+        EventBroker.onGameOver += GameOver;
+    }
+
+    void OnDisable()
+    {
+        EventBroker.onGameOver -= GameOver;
+    }
+
     void Update()
     {
-        if (Mouse.current == null) return;
+        if (Mouse.current == null || !isPlaying) return;
         
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
 
@@ -30,5 +41,10 @@ public class OrbitManager : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
+    void GameOver()
+    {
+        isPlaying = false;
     }
 }

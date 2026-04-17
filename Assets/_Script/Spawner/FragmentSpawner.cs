@@ -3,7 +3,8 @@ using UnityEngine;
 public class FragmentSpawner : MonoBehaviour
 {
     [SerializeField] private ObjectPool fragmentPool;
-    [SerializeField] private float explosionForce;
+    [SerializeField] private float defaultExplosionForce; 
+    private float explosionForce;
     
     private readonly Vector2[] explodeDirections = new Vector2[8]
     {
@@ -23,6 +24,7 @@ public class FragmentSpawner : MonoBehaviour
         EventBroker.onFragmentOutOfScreen += returnFragment;
         EventBroker.somethingIsBlocked += returnFragment;
         EventBroker.onEnemyHitPlayer += returnFragment;
+        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
     }
     void OnDisable()
     {
@@ -30,6 +32,12 @@ public class FragmentSpawner : MonoBehaviour
         EventBroker.onFragmentOutOfScreen -= returnFragment;
         EventBroker.somethingIsBlocked -= returnFragment;
         EventBroker.onEnemyHitPlayer -= returnFragment;
+        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
+    }
+
+    void Awake()
+    {
+        explosionForce = defaultExplosionForce;
     }
 
     public void Explode(Vector3 position)
@@ -52,6 +60,11 @@ public class FragmentSpawner : MonoBehaviour
         {
             fragmentPool.ReturnObject(collider.gameObject);
         } 
+    }
+
+    void EnhancingDifficulty()
+    {
+        explosionForce += 0.25f;
     }
 }
 

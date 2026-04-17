@@ -18,6 +18,8 @@ public static class EventBroker
     #endregion
 
     #region MAIN GAMELOOP EVENTS
+    public static Action OnDifficultyEnhanced;
     public static Action onGameOver;
+    public static Action onGameRestarted;
     #endregion
 }

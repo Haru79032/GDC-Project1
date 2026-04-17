@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI HPtext;
     private float _currentHP;
     private bool isInvincible = false;
+
     void Awake()
     {
         _currentHP = maxHP;
@@ -25,6 +26,7 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Game Over");
             EventBroker.onGameOver?.Invoke();   
         }
+
         else
         {
             Debug.Log("PLayer took damage");
@@ -35,9 +37,9 @@ public class PlayerManager : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Fragment") ||
-            collision.gameObject.CompareTag("Enemy") ||
-            collision.gameObject.CompareTag("Enemy2") ||
-            collision.gameObject.CompareTag("Enemy3"))
+            collision.gameObject.CompareTag("Bug") ||
+            collision.gameObject.CompareTag("Error") ||
+            collision.gameObject.CompareTag("Bomb"))
         {
             if (!isInvincible)
             {

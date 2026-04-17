@@ -7,12 +7,12 @@ public class Bullet : MonoBehaviour
     {
         EventBroker.onBulletHitSomething?.Invoke(myCollider);
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Bug"))
         {
             EventBroker.somethingIsShot?.Invoke(collision);
         }
 
-        if (collision.gameObject.CompareTag("Enemy3")) {
+        if (collision.gameObject.CompareTag("Bomb")) {
             EventBroker.onBombDeath?.Invoke(collision.transform.position);
             EventBroker.somethingIsShot?.Invoke(collision);    
         }

@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private RandomPos randomPos;
     [SerializeField] private ObjectPool bugPool;
     [SerializeField] private ObjectPool errorPool;
     [SerializeField] private ObjectPool bombPool;
     [SerializeField] private float radius;
-    [SerializeField] private float spawnTime = 3f;
+    [SerializeField] private float defaultSpawnTime;
+    private float spawnTime;
     private bool IsSpawnReady=true;
 
     void OnEnable()
@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.onEnemyHitPlayer += ReturnEnemy;
         EventBroker.onEnemyReachedTarget += ReturnEnemy;
         EventBroker.somethingIsBlocked += ReturnEnemy;
+        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
     }
 
     void OnDisable()
@@ -30,11 +31,13 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.onEnemyHitPlayer -= ReturnEnemy;
         EventBroker.onEnemyReachedTarget -= ReturnEnemy;
         EventBroker.somethingIsBlocked -= ReturnEnemy;
+        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
     }
 
     void Awake()
     {
         randomPos = new RandomPos(radius);
+        spawnTime = defaultSpawnTime;
     }
 
     void Start()
@@ -43,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     void Update()
-    {        
+    {
         
     }
     IEnumerator Spawn_Enemy() {
@@ -72,20 +75,22 @@ public class EnemySpawner : MonoBehaviour
 
     void ReturnEnemy(Collider2D collider)
     {
-        if (!collider.gameObject.CompareTag("Fragment"))
+        if (collider.gameObject.CompareTag("Bug"))
         {
-            if (collider.gameObject.CompareTag("Enemy"))
-            {
-                bugPool.ReturnObject(collider.gameObject);
-            }
-            else if (collider.gameObject.CompareTag("Enemy2"))
-            {
-                errorPool.ReturnObject(collider.gameObject);
-            }
-            else if (collider.gameObject.CompareTag("Enemy3"))
-            {
-                bombPool.ReturnObject(collider.gameObject);
-            }
+            bugPool.ReturnObject(collider.gameObject);
         }
+        else if (collider.gameObject.CompareTag("Error"))
+        {
+            errorPool.ReturnObject(collider.gameObject);
+        }
+        else if (collider.gameObject.CompareTag("Bomb"))
+        {
+            bombPool.ReturnObject(collider.gameObject);
+        }
+    }
+
+    void EnhancingDifficulty()
+    {
+        if (spawnTime > 0.25f) spawnTime -= 0.25f;
     }
 }

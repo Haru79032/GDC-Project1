@@ -25,6 +25,7 @@ public class ScoreManager : MonoBehaviour
         EventBroker.somethingIsBlocked += addComboScore;
         EventBroker.somethingIsShot += addComboScore;
         EventBroker.onEnemyHitPlayer += resetStreakAndCombo;
+        EventBroker.onGameOver += GameOver;
     }
 
     void OnDisable()
@@ -32,13 +33,16 @@ public class ScoreManager : MonoBehaviour
         EventBroker.somethingIsBlocked -= addComboScore;
         EventBroker.somethingIsShot -= addComboScore;
         EventBroker.onEnemyHitPlayer -= resetStreakAndCombo;
+        EventBroker.onGameOver -= GameOver;
     }
 
     void Awake()
     {
         _currentScore = 0;
         _streakMultiplier = 1f;
+        _streakTimer = 0f;
         _comboMultiplier = 1f;
+        _comboCount = 0;
         _scoreText.text = $"Score: {_currentScore}";
         _highestScore = PlayerPrefs.GetFloat("HighestScore", 0f);
     }

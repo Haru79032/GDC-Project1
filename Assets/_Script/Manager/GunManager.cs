@@ -11,18 +11,30 @@ public class GunManager : MonoBehaviour
     [SerializeField] private GameObject aimingLazer;
     [SerializeField] private ObjectPool pool;   
     [SerializeField] private float lazerTime;
-    [SerializeField] private float bulletSpeed = 5f;
+    [SerializeField] private float defaultBulletSpeed = 5f; 
+    private float bulletSpeed;
     private Camera mainCamera;
     private LineRenderer lazer;
+    private bool isPlaying = true;
 
     void OnEnable()
     {
-        EventBroker.onBulletHitSomething += returnBullet;
+        EventBroker.onBulletHitSomething += ReturnBullet;
+        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
+        EventBroker.onGameOver += GameOver;
     }
 
     void OnDisable()
     {
-        EventBroker.onBulletHitSomething -= returnBullet;
+        EventBroker.onBulletHitSomething -= ReturnBullet;
+        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
+        EventBroker.onGameOver -= GameOver;
+    }
+
+    void Awake()
+    {
+        bulletSpeed = defaultBulletSpeed;
+        isPlaying = true;
     }
 
     void Start()
@@ -33,6 +45,8 @@ public class GunManager : MonoBehaviour
 
     void Update()
     {
+        if (!isPlaying) return;
+
         UpdateAiming();
 
         if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
@@ -79,8 +93,18 @@ public class GunManager : MonoBehaviour
         obj.GetComponent<Rigidbody2D>().linearVelocity = direction * bulletSpeed;
     }
 
-    void returnBullet(Collider2D bullet)
+    void ReturnBullet(Collider2D bullet)
     {
         pool.ReturnObject(bullet.gameObject);
+    }
+
+    void EnhancingDifficulty()
+    {
+        bulletSpeed += 0.25f;
+    }
+
+    void GameOver()
+    {
+        isPlaying = false;
     }
 }
