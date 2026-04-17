@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 19224344}
   - component: {fileID: 19224345}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,9 +518,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a357be33d5868dc439520e8facc9f8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
-  maxHP: 3
+  maxHP: 5
   myCollider: {fileID: 770822119}
   invincibleTime: 3
+  HPtext: {fileID: 783766357}
 --- !u!212 &770822117
 SpriteRenderer:
   serializedVersion: 2
@@ -872,7 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FragmentManager
   fragmentPool: {fileID: 211976128}
-  explosionForce: 2
+  explosionForce: 3
 --- !u!4 &912670137
 Transform:
   m_ObjectHideFlags: 0
@@ -1630,12 +1631,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594487677}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -3.2500005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2145252207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1594487680
 MonoBehaviour:
@@ -1845,6 +1846,7 @@ Transform:
   m_Children:
   - {fileID: 246874759}
   - {fileID: 1031051469}
+  - {fileID: 1594487679}
   m_Father: {fileID: 1602606024}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!120 &2145252208
@@ -2042,7 +2044,6 @@ SceneRoots:
   - {fileID: 1602606024}
   - {fileID: 1985520907}
   - {fileID: 19224344}
-  - {fileID: 1594487679}
   - {fileID: 211976129}
   - {fileID: 912670137}
   - {fileID: 906233112}

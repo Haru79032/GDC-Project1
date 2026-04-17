@@ -155,5 +155,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3421c45039e9d4199c8bdef334eddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 2
+  speed: 3
   myCollider: {fileID: 6425141068534229535}
