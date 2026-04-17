@@ -9,7 +9,9 @@ public class EnemySpawner : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private RandomPos randomPos;
-    [SerializeField] private ObjectPool enemyPool;
+    [SerializeField] private ObjectPool bugPool;
+    [SerializeField] private ObjectPool errorPool;
+    [SerializeField] private ObjectPool bombPool;
     [SerializeField] private float radius;
     [SerializeField] private float spawnTime = 3f;
     private bool IsSpawnReady=true;
@@ -19,6 +21,7 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.somethingIsShot += ReturnEnemy;
         EventBroker.onEnemyHitPlayer += ReturnEnemy;
         EventBroker.onEnemyReachedTarget += ReturnEnemy;
+        EventBroker.somethingIsBlocked += ReturnEnemy;
     }
 
     void OnDisable()
@@ -26,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.somethingIsShot -= ReturnEnemy;
         EventBroker.onEnemyHitPlayer -= ReturnEnemy;
         EventBroker.onEnemyReachedTarget -= ReturnEnemy;
+        EventBroker.somethingIsBlocked -= ReturnEnemy;
     }
 
     void Awake()
@@ -46,7 +50,20 @@ public class EnemySpawner : MonoBehaviour
         while (IsSpawnReady)
         {
             IsSpawnReady=false;
-            GameObject enemy = enemyPool.GetObject();
+            int RandomNum = Random.Range(1, 101);
+            GameObject enemy;
+            if (RandomNum <= 60)
+            {
+                enemy = bugPool.GetObject();
+            }
+            else if (RandomNum > 60 && RandomNum <= 90)
+            {
+                enemy = errorPool.GetObject();
+            }
+            else
+            {
+                enemy = bombPool.GetObject();
+            }
             enemy.transform.position=randomPos.RandomOnPerimeter();
             yield return new WaitForSeconds(spawnTime);
             IsSpawnReady=true;
@@ -57,7 +74,18 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!collider.gameObject.CompareTag("Fragment"))
         {
-            enemyPool.ReturnObject(collider.gameObject);
+            if (collider.gameObject.CompareTag("Enemy"))
+            {
+                bugPool.ReturnObject(collider.gameObject);
+            }
+            else if (collider.gameObject.CompareTag("Enemy2"))
+            {
+                errorPool.ReturnObject(collider.gameObject);
+            }
+            else if (collider.gameObject.CompareTag("Enemy3"))
+            {
+                bombPool.ReturnObject(collider.gameObject);
+            }
         }
     }
 }
