@@ -9,10 +9,14 @@ public class ScoreManager : MonoBehaviour
     private float[] streakMilestone = new float[5] {60, 45, 30, 20, 10};
     private int[] comboMilestone = new int[5] {100, 80, 60, 40, 20};
     private float[] scoreMultiplier = new float[5] {6, 5, 4, 3, 2};
+    
+    private float _highestScore;
     private float _currentScore;
     private float _timer;
+    
     private float _streakMultiplier;
     private float _streakTimer;
+    
     private int _comboCount;
     private float _comboMultiplier;
 
@@ -36,7 +40,7 @@ public class ScoreManager : MonoBehaviour
         _streakMultiplier = 1f;
         _comboMultiplier = 1f;
         _scoreText.text = $"Score: {_currentScore}";
-        
+        _highestScore = PlayerPrefs.GetFloat("HighestScore", 0f);
     }
 
     void Update()
@@ -103,6 +107,12 @@ public class ScoreManager : MonoBehaviour
     void UpdateScore(float Score)
     {
         _currentScore += Score;
+        if (_currentScore > _highestScore) _highestScore = _currentScore;
         _scoreText.text = $"Score: {_currentScore}";
+    }
+
+    void GameOver()
+    {
+        PlayerPrefs.SetFloat("HighestScore", _highestScore);
     }
 }
