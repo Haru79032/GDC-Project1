@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9db12c9385499f2469b192a5d3e5f5c6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthHigh: {fileID: 4437571293994990360, guid: 4888176aee62a91489ee37dfe205c35f, type: 3}
+  - healthModerate: {fileID: -3417536771159063686, guid: 4888176aee62a91489ee37dfe205c35f, type: 3}
+  - healthLow: {fileID: -4958591850568727841, guid: 4888176aee62a91489ee37dfe205c35f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
