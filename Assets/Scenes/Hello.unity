@@ -167,7 +167,7 @@ MonoBehaviour:
   errorPool: {fileID: 1215455211}
   bombPool: {fileID: 1985520908}
   radius: 22
-  spawnTime: 2
+  defaultSpawnTime: 3
 --- !u!1 &128863822
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a357be33d5868dc439520e8facc9f8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
-  maxHP: 5
+  maxHP: 3
   myCollider: {fileID: 770822119}
   invincibleTime: 3
   HPtext: {fileID: 783766357}
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FragmentManager
   fragmentPool: {fileID: 211976128}
-  explosionForce: 3
+  defaultExplosionForce: 3
 --- !u!4 &912670137
 Transform:
   m_ObjectHideFlags: 0
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dcbce6c71ccc5c46a5dde38e808012b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _difficultyEnhancingTime: 5
+  _difficultyEnhancingTime: 15
 --- !u!4 &1089012421
 Transform:
   m_ObjectHideFlags: 0
@@ -2115,7 +2115,7 @@ MonoBehaviour:
   aimingLazer: {fileID: 1031051468}
   pool: {fileID: 1594487680}
   lazerTime: 0.15
-  bulletSpeed: 15
+  defaultBulletSpeed: 15
 --- !u!212 &2145252210
 SpriteRenderer:
   serializedVersion: 2
