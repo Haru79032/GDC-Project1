@@ -1,35 +1,32 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private float maxHP;
+    private const int maxHP = 3;
     [SerializeField] private Collider2D myCollider;
     [SerializeField] private float invincibleTime;
-    [SerializeField] private TextMeshProUGUI HPtext;
-    private float _currentHP;
+    [SerializeField] private float flashCount;
+    private int _currentHP;
     private bool isInvincible = false;
+    private SpriteRenderer playerSpriteRenderer;
 
     void Awake()
     {
         _currentHP = maxHP;
-        HPtext.text = $"HP: {_currentHP}";
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void DamageTaken()
     {
         _currentHP--;
-        HPtext.text = $"HP: {_currentHP}";
+        EventBroker.onTakingDamage?.Invoke(_currentHP);
         if (_currentHP <= 0)
         {
-            Debug.Log("Game Over");
             EventBroker.onGameOver?.Invoke();   
         }
-
         else
         {
-            Debug.Log("PLayer took damage");
             StartCoroutine(InvincibleMode());
         }
     }
@@ -52,7 +49,17 @@ public class PlayerManager : MonoBehaviour
     IEnumerator InvincibleMode()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(invincibleTime);
+        for (int i = 0; i < flashCount; i++)
+        {
+            if (playerSpriteRenderer != null)
+            {
+                playerSpriteRenderer.enabled = false;
+                yield return new WaitForSeconds(invincibleTime/(2*flashCount));
+                playerSpriteRenderer.enabled = true;
+                yield return new WaitForSeconds(invincibleTime/(2*flashCount));
+            }
+        }
+        //yield return new WaitForSeconds(invincibleTime);
         isInvincible = false;
     }
 }

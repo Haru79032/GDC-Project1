@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game
+  m_text: Game.exe
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc8b699e979ab2845b3a8cb410ccfa2f, type: 2}
   m_sharedMaterial: {fileID: 7477240784516559539, guid: cc8b699e979ab2845b3a8cb410ccfa2f, type: 2}

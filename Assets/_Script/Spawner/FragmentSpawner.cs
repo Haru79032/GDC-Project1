@@ -24,7 +24,7 @@ public class FragmentSpawner : MonoBehaviour
         EventBroker.onFragmentOutOfScreen += returnFragment;
         EventBroker.somethingIsBlocked += returnFragment;
         EventBroker.onEnemyHitPlayer += returnFragment;
-        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced += EnhancingDifficulty;
     }
     void OnDisable()
     {
@@ -32,7 +32,7 @@ public class FragmentSpawner : MonoBehaviour
         EventBroker.onFragmentOutOfScreen -= returnFragment;
         EventBroker.somethingIsBlocked -= returnFragment;
         EventBroker.onEnemyHitPlayer -= returnFragment;
-        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced -= EnhancingDifficulty;
     }
 
     void Awake()

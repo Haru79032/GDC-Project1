@@ -19,3 +19,11 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 300037367b600be4cbfc79cf5c73c643, type: 3}
   - type: 2
     clip: {fileID: 8300000, guid: 039ed00e6bbe7fc4cb2766240d0bc953, type: 3}
+  - type: 3
+    clip: {fileID: 8300000, guid: 22eda5f303da3f546b59e27b41d68b91, type: 3}
+  - type: 4
+    clip: {fileID: 8300000, guid: 8acd085f4559d3d42a16aa4dc4dcc4ae, type: 3}
+  - type: 5
+    clip: {fileID: 8300000, guid: 163ec52dea17c71489d7c27d7a68f7c3, type: 3}
+  - type: 6
+    clip: {fileID: 8300000, guid: 3d224425a486e344ca41d40d20a2be79, type: 3}

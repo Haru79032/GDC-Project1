@@ -1,24 +1,28 @@
 using TMPro;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
-    private float[] streakMilestone = new float[5] {60, 45, 30, 20, 10};
+    [SerializeField] private TextMeshProUGUI _finalScoreText;
+    [SerializeField] private TextMeshProUGUI _highScoreText;
+    private float[] streakMilestone = new float[5] {60.0f, 45.0f, 30.0f, 20.0f, 10.0f};
     private int[] comboMilestone = new int[5] {100, 80, 60, 40, 20};
-    private float[] scoreMultiplier = new float[5] {6, 5, 4, 3, 2};
+    private int[] scoreMultiplier = new int[5] {6, 5, 4, 3, 2};
     
-    private float _highestScore;
-    private float _currentScore;
+    private int _highestScore;
+    private int _currentScore;
     private float _timer;
     
-    private float _streakMultiplier;
+    private int _streakMultiplier;
     private float _streakTimer;
     
     private int _comboCount;
-    private float _comboMultiplier;
+    private int _comboMultiplier;
+    private const int MIN_SCORE = 0;
+    private const int MAX_SCORE = 999999999;
+    private bool isPaused = false;
+    private bool isGameOver = false;
 
     void OnEnable()
     {
@@ -26,6 +30,7 @@ public class ScoreManager : MonoBehaviour
         EventBroker.somethingIsShot += addComboScore;
         EventBroker.onEnemyHitPlayer += resetStreakAndCombo;
         EventBroker.onGameOver += GameOver;
+        EventBroker.onGamePaused += GameIsPaused;
     }
 
     void OnDisable()
@@ -34,21 +39,25 @@ public class ScoreManager : MonoBehaviour
         EventBroker.somethingIsShot -= addComboScore;
         EventBroker.onEnemyHitPlayer -= resetStreakAndCombo;
         EventBroker.onGameOver -= GameOver;
+        EventBroker.onGamePaused -= GameIsPaused;
     }
 
     void Awake()
     {
         _currentScore = 0;
-        _streakMultiplier = 1f;
+        _streakMultiplier = 1;
         _streakTimer = 0f;
-        _comboMultiplier = 1f;
+        _comboMultiplier = 1;
         _comboCount = 0;
-        _scoreText.text = $"Score: {_currentScore}";
-        _highestScore = PlayerPrefs.GetFloat("HighestScore", 0f);
+        _highestScore = PlayerPrefs.GetInt("HighestScore", 0);
     }
 
     void Update()
     {
+        if (isPaused || isGameOver)
+        {
+            return;
+        }
         _timer += Time.deltaTime;
         _streakTimer += Time.deltaTime;
 
@@ -103,20 +112,42 @@ public class ScoreManager : MonoBehaviour
     void resetStreakAndCombo(Collider2D collider)
     {
         _streakTimer = 0f;
-        _streakMultiplier = 1f;
+        _streakMultiplier = 1;
         _comboCount = 0;
-        _comboMultiplier = 1f;
+        _comboMultiplier = 1;
     }
 
-    void UpdateScore(float Score)
+    void UpdateScore(int score)
     {
-        _currentScore += Score;
-        if (_currentScore > _highestScore) _highestScore = _currentScore;
-        _scoreText.text = $"Score: {_currentScore}";
+        _currentScore += score;
+        _currentScore = Mathf.Clamp(_currentScore, MIN_SCORE, MAX_SCORE);
+        if (_scoreText != null)
+        {
+            _scoreText.text = _currentScore.ToString("D9");
+        }
     }
 
     void GameOver()
     {
-        PlayerPrefs.SetFloat("HighestScore", _highestScore);
+        isGameOver = true;
+        if (_currentScore > _highestScore)
+        {
+            _highestScore = _currentScore;
+            PlayerPrefs.SetFloat("HighestScore", _highestScore);
+        }
+
+        if (_finalScoreText != null)
+        {
+            _finalScoreText.SetText("Score: {0}", _currentScore);
+        }
+        if (_highScoreText != null)
+        {
+            _highScoreText.SetText("Hi-score: {0}", _highestScore);
+        }
+    }
+
+    private void GameIsPaused(bool state)
+    {
+        isPaused = state;
     }
 }

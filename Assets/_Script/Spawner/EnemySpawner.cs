@@ -1,8 +1,4 @@
 using System.Collections;
-using System.Numerics;
-using NUnit.Framework;
-using Unity.VisualScripting;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -22,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.onEnemyHitPlayer += ReturnEnemy;
         EventBroker.onEnemyReachedTarget += ReturnEnemy;
         EventBroker.somethingIsBlocked += ReturnEnemy;
-        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced += EnhancingDifficulty;
     }
 
     void OnDisable()
@@ -31,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.onEnemyHitPlayer -= ReturnEnemy;
         EventBroker.onEnemyReachedTarget -= ReturnEnemy;
         EventBroker.somethingIsBlocked -= ReturnEnemy;
-        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced -= EnhancingDifficulty;
     }
 
     void Awake()
@@ -43,11 +39,6 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(Spawn_Enemy());
-    }
-
-    void Update()
-    {
-        
     }
     IEnumerator Spawn_Enemy() {
         while (IsSpawnReady)

@@ -1,5 +1,3 @@
-using System;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,24 +7,23 @@ public class OrbitManager : MonoBehaviour
     
     [SerializeField] private GameObject _shield;
     public Camera mainCamera;
-    private bool isPlaying;
-    void Awake()
-    {
-        isPlaying = true;
-    }
+    private bool isPaused = false;
+    private bool isGameOver = false;
     void OnEnable()
     {
         EventBroker.onGameOver += GameOver;
+        EventBroker.onGamePaused += GameIsPaused;
     }
 
     void OnDisable()
     {
         EventBroker.onGameOver -= GameOver;
+        EventBroker.onGamePaused -= GameIsPaused;
     }
 
     void Update()
     {
-        if (Mouse.current == null || !isPlaying) return;
+        if (Mouse.current == null || isPaused || isGameOver) return;
         
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
 
@@ -45,6 +42,11 @@ public class OrbitManager : MonoBehaviour
 
     void GameOver()
     {
-        isPlaying = false;
+        isGameOver = true;
+    }
+
+    private void GameIsPaused(bool state)
+    {
+        isPaused = state;
     }
 }

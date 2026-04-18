@@ -1,6 +1,3 @@
-using System.Collections;
-using System.IO;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,26 +12,28 @@ public class GunManager : MonoBehaviour
     private float bulletSpeed;
     private Camera mainCamera;
     private LineRenderer lazer;
-    private bool isPlaying = true;
+    private bool isPaused = false;
+    private bool isGameOver = false;
 
     void OnEnable()
     {
         EventBroker.onBulletHitSomething += ReturnBullet;
-        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced += EnhancingDifficulty;
         EventBroker.onGameOver += GameOver;
+        EventBroker.onGamePaused += GameIsPaused;
     }
 
     void OnDisable()
     {
         EventBroker.onBulletHitSomething -= ReturnBullet;
-        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced -= EnhancingDifficulty;
         EventBroker.onGameOver -= GameOver;
+        EventBroker.onGamePaused -= GameIsPaused;
     }
 
     void Awake()
     {
         bulletSpeed = defaultBulletSpeed;
-        isPlaying = true;
     }
 
     void Start()
@@ -45,7 +44,7 @@ public class GunManager : MonoBehaviour
 
     void Update()
     {
-        if (!isPlaying) return;
+        if (isPaused || isGameOver) return;
 
         UpdateAiming();
 
@@ -91,6 +90,7 @@ public class GunManager : MonoBehaviour
         GameObject obj = pool.GetObject();
         obj.GetComponent<Transform>().position = firePosition.position; 
         obj.GetComponent<Rigidbody2D>().linearVelocity = direction * bulletSpeed;
+        EventBroker.onBulletShot?.Invoke();
     }
 
     void ReturnBullet(Collider2D bullet)
@@ -105,6 +105,11 @@ public class GunManager : MonoBehaviour
 
     void GameOver()
     {
-        isPlaying = false;
+        isGameOver = true;
+    }
+
+    private void GameIsPaused(bool state)
+    {
+        isPaused = state;
     }
 }

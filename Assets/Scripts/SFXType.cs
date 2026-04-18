@@ -1,6 +1,0 @@
-public enum SFXType
-{
-    UI_ZOOM_IN,
-    APP_HOVERING,
-    PAUSE_MENU_BUTTON_HOVERING
-}
