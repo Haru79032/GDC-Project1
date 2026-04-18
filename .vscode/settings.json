@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "GDC Project 1.slnx",
+    "dotnet.defaultSolution": "GDC-Project1.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }

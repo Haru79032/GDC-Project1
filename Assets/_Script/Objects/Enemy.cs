@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float defaultSpeed; 
     [SerializeField] private Collider2D myCollider;
+    [SerializeField] private float maxSpeed;
     private float speed;
     private Vector2 targetPos;
     private bool isPaused = false;
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour
 
     void EnhancingDifficulty()
     {
-        speed += 0.25f;
+        if (speed < maxSpeed) speed += 0.1f;
     }
 
     private void GameOver()
