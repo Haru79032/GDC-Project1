@@ -9,6 +9,7 @@ public static class EventBroker
     public static Action<Collider2D> onBulletHitSomething;
     public static Action<Vector3> onBombDeath;
     public static Action<Collider2D> onEnemyHitPlayer;
+    public static Action onBulletShot;
     #endregion
 
     #region OUT OF SCREEN CHECK
@@ -18,8 +19,10 @@ public static class EventBroker
     #endregion
 
     #region MAIN GAMELOOP EVENTS
-    public static Action OnDifficultyEnhanced;
+    public static Action onDifficultyEnhanced;
+    public static Action<int> onTakingDamage;
     public static Action onGameOver;
+    public static Action<bool> onGamePaused;
     public static Action onGameRestarted;
     #endregion
 }

@@ -1,8 +1,4 @@
 using System.Collections;
-using System.Numerics;
-using NUnit.Framework;
-using Unity.VisualScripting;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -11,8 +7,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private ObjectPool bugPool;
     [SerializeField] private ObjectPool errorPool;
     [SerializeField] private ObjectPool bombPool;
-    [SerializeField] private float radius;
+    [SerializeField] private float _xRange;
+    [SerializeField] private float _yRange;
     [SerializeField] private float defaultSpawnTime;
+    [SerializeField] private float minSpawnTime;
     private float spawnTime;
     private bool IsSpawnReady=true;
 
@@ -22,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.onEnemyHitPlayer += ReturnEnemy;
         EventBroker.onEnemyReachedTarget += ReturnEnemy;
         EventBroker.somethingIsBlocked += ReturnEnemy;
-        EventBroker.OnDifficultyEnhanced += EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced += EnhancingDifficulty;
     }
 
     void OnDisable()
@@ -31,23 +29,18 @@ public class EnemySpawner : MonoBehaviour
         EventBroker.onEnemyHitPlayer -= ReturnEnemy;
         EventBroker.onEnemyReachedTarget -= ReturnEnemy;
         EventBroker.somethingIsBlocked -= ReturnEnemy;
-        EventBroker.OnDifficultyEnhanced -= EnhancingDifficulty;
+        EventBroker.onDifficultyEnhanced -= EnhancingDifficulty;
     }
 
     void Awake()
     {
-        randomPos = new RandomPos(radius);
+        randomPos = new RandomPos(_xRange, _yRange);
         spawnTime = defaultSpawnTime;
     }
 
     void Start()
     {
         StartCoroutine(Spawn_Enemy());
-    }
-
-    void Update()
-    {
-        
     }
     IEnumerator Spawn_Enemy() {
         while (IsSpawnReady)
@@ -91,6 +84,9 @@ public class EnemySpawner : MonoBehaviour
 
     void EnhancingDifficulty()
     {
-        if (spawnTime > 0.25f) spawnTime -= 0.25f;
+        if (spawnTime > minSpawnTime)
+        {
+            spawnTime -= (defaultSpawnTime - minSpawnTime) / 20f;
+        }
     }
 }

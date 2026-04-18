@@ -2,17 +2,32 @@ using UnityEngine;
 
 public class RandomPos
 {
-    private float _radius;
+    private float _xRange;
+    private float _yRange;
     
-    public RandomPos(float radius)
+    public RandomPos(float xRange, float yRange)
     {
-        _radius = radius;
+        _xRange = xRange;
+        _yRange = yRange;
     }
     
     public Vector3 RandomOnPerimeter()
     {
-        Vector2 randomPoint = Random.insideUnitCircle.normalized * _radius;
+        int side = Random.Range(0, 2); 
         
-        return new Vector3(randomPoint.x, randomPoint.y, 0f);
+        float x, y;
+
+        if (side == 0)
+        {
+            x = Random.Range(-_xRange, _xRange);
+            y = Random.value > 0.5f ? _yRange : -_yRange;
+        }
+        
+        else
+        {
+            x = Random.value > 0.5f ? _xRange : -_xRange;
+            y = Random.Range(-_yRange, _yRange);
+        }
+        return new Vector3(x, y, 0f);
     }
 }
