@@ -12,7 +12,10 @@ public abstract class AppButton : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySFX(SFXType.APP_HOVERING);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXType.APP_HOVERING);
+        }
     }
 
     protected abstract void OnMouseDoubleClick();

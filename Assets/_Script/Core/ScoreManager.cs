@@ -133,7 +133,8 @@ public class ScoreManager : MonoBehaviour
         if (_currentScore > _highestScore)
         {
             _highestScore = _currentScore;
-            PlayerPrefs.SetFloat("HighestScore", _highestScore);
+            PlayerPrefs.SetInt("HighestScore", _highestScore);
+            PlayerPrefs.Save();
         }
 
         if (_finalScoreText != null)

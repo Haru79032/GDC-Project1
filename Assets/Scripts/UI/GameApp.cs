@@ -14,6 +14,10 @@ public class GameApp : AppButton
         {
             gameExecCanvas.gameObject.SetActive(true);
         }
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXType.APP_OPENING);
+        }
         if (zoomContainer != null)
         {
             StartCoroutine(CallZoomInScreen());

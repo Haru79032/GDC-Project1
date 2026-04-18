@@ -4,10 +4,12 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance {get; private set;}
-    public SFXLibrary sfxLibrary;
-    public MusicLibrary primaryMusicLibrary;
-    public MusicLibrary interruptMusicLibrary;
+    [SerializeField] private SFXLibrary sfxLibrary;
+    [SerializeField] private MusicLibrary primaryMusicLibrary;
+    [SerializeField] private MusicLibrary interruptMusicLibrary;
     [SerializeField] private AudioMixer mixer;
+    public float sfxMinPitch = 0.9f;
+    public float sfxMaxPitch = 1.1f;
     private void Awake()
     {
         if (Instance == null)
@@ -72,6 +74,7 @@ public class AudioManager : MonoBehaviour
         {
             if (SFXAudioSource.Instance != null)
             {
+                SFXAudioSource.Instance.GetComponent<AudioSource>().pitch = Random.Range(sfxMinPitch, sfxMaxPitch);
                 SFXAudioSource.Instance.GetComponent<AudioSource>().PlayOneShot(clip);
             }
         }

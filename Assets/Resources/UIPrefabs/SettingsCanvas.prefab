@@ -1788,7 +1788,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsCanvas
   musicSlider: {fileID: 6669206835341641509}
   sfxSlider: {fileID: 8952149797111137556}
-  mixer: {fileID: 24100000, guid: 486eb1d8b9a40af45b2fc0864e8b1157, type: 2}
 --- !u!1 &8761807357375552100
 GameObject:
   m_ObjectHideFlags: 0

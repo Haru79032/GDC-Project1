@@ -50,6 +50,10 @@ public class PauseCanvas : MonoBehaviour
         {
             settingsCanvas.gameObject.SetActive(true);
         }
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXType.APP_OPENING);
+        }
     }
 
     public void OpenInfo()
