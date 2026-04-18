@@ -7,8 +7,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _finalScoreText;
     [SerializeField] private TextMeshProUGUI _highScoreText;
     private float[] streakMilestone = new float[10] {150f, 120f, 105f, 90f, 75f, 60.0f, 45.0f, 30.0f, 20.0f, 10.0f};
-    private int[] comboMilestone = new int[10] {200, 180, 160, 140, 120, 100, 80, 60, 40, 20};
-    private int[] scoreMultiplier = new int[10] {25, 20, 16, 14, 12, 10, 8, 6, 4, 2};
+    private int[] comboMilestone = new int[10] {160, 140, 120, 100, 80, 65, 50, 35, 20, 10};
+    private int[] scoreMultiplier = new int[10] {50, 40, 32, 28, 24, 20, 16, 12, 8, 4};
     
     private int _highestScore;
     private int _currentScore;
