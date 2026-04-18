@@ -8,7 +8,8 @@ public class GunManager : MonoBehaviour
     [SerializeField] private GameObject aimingLazer;
     [SerializeField] private ObjectPool pool;   
     [SerializeField] private float lazerTime;
-    [SerializeField] private float defaultBulletSpeed = 5f; 
+    [SerializeField] private float defaultBulletSpeed;
+    [SerializeField] private float maxBulletSpeed; 
     private float bulletSpeed;
     private Camera mainCamera;
     private LineRenderer lazer;
@@ -100,7 +101,10 @@ public class GunManager : MonoBehaviour
 
     void EnhancingDifficulty()
     {
-        bulletSpeed += 0.25f;
+        if (bulletSpeed < maxBulletSpeed)
+        {
+            bulletSpeed += (maxBulletSpeed - defaultBulletSpeed) / 20f;
+        }
     }
 
     void GameOver()

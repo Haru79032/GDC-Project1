@@ -3,7 +3,8 @@ using UnityEngine;
 public class FragmentSpawner : MonoBehaviour
 {
     [SerializeField] private ObjectPool fragmentPool;
-    [SerializeField] private float defaultExplosionForce; 
+    [SerializeField] private float defaultExplosionForce;
+    [SerializeField] private float maxExplosionForce; 
     private float explosionForce;
     
     private readonly Vector2[] explodeDirections = new Vector2[8]
@@ -64,7 +65,10 @@ public class FragmentSpawner : MonoBehaviour
 
     void EnhancingDifficulty()
     {
-        explosionForce += 0.25f;
+        if (explosionForce < maxExplosionForce)
+        {
+            explosionForce += (maxExplosionForce - defaultExplosionForce) / 20f;
+        }
     }
 }
 

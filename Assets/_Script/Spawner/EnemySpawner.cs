@@ -7,8 +7,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private ObjectPool bugPool;
     [SerializeField] private ObjectPool errorPool;
     [SerializeField] private ObjectPool bombPool;
-    [SerializeField] private float radius;
+    [SerializeField] private float _xRange;
+    [SerializeField] private float _yRange;
     [SerializeField] private float defaultSpawnTime;
+    [SerializeField] private float minSpawnTime;
     private float spawnTime;
     private bool IsSpawnReady=true;
 
@@ -32,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Awake()
     {
-        randomPos = new RandomPos(radius);
+        randomPos = new RandomPos(_xRange, _yRange);
         spawnTime = defaultSpawnTime;
     }
 
@@ -82,6 +84,9 @@ public class EnemySpawner : MonoBehaviour
 
     void EnhancingDifficulty()
     {
-        if (spawnTime > 0.25f) spawnTime -= 0.25f;
+        if (spawnTime > minSpawnTime)
+        {
+            spawnTime -= (defaultSpawnTime - minSpawnTime) / 20f;
+        }
     }
 }

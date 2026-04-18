@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float defaultSpeed; 
     [SerializeField] private Collider2D myCollider;
+    [SerializeField] private float defaultSpeed; 
     [SerializeField] private float maxSpeed;
     private float speed;
     private Vector2 targetPos;
@@ -44,7 +44,10 @@ public class Enemy : MonoBehaviour
 
     void EnhancingDifficulty()
     {
-        if (speed < maxSpeed) speed += 0.1f;
+        if (speed < maxSpeed)
+        {
+            speed += (maxSpeed - defaultSpeed) / 20f;
+        }
     }
 
     private void GameOver()
