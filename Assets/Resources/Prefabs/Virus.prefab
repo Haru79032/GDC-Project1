@@ -105,8 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3421c45039e9d4199c8bdef334eddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  defaultSpeed: 2
   myCollider: {fileID: 8823416388214231013}
+  defaultSpeed: 3.5
+  maxSpeed: 5
 --- !u!61 &8823416388214231013
 BoxCollider2D:
   m_ObjectHideFlags: 0
