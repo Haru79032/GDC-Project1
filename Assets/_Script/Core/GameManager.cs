@@ -8,12 +8,10 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     private bool isGameOver = false;
     private float _timer = 0.0f;
-    private int currentLevel;
 
     void Awake()
     {
         Time.timeScale = 1f;
-        currentLevel = 0;
     }
 
     void OnEnable()
@@ -37,18 +35,8 @@ public class GameManager : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _difficultyEnhancingTime)
         {
-            if (currentLevel < 20)
-            {
-                EventBroker.onDifficultyEnhanced?.Invoke();
-                currentLevel++;
-                Debug.Log($"Level up to {currentLevel}");
-                _timer = 0.0f;
-            }
-            else
-            {
-                Debug.Log("Reached highest level !");
-                _timer = 0.0f;
-            }
+            EventBroker.onDifficultyEnhanced?.Invoke();
+            _timer = 0.0f;
         }
     }
 
