@@ -26,9 +26,11 @@ public class GameApp : AppButton
 
     IEnumerator CallZoomInScreen()
     {
+        EventBroker.onPointerTriggerLoad?.Invoke(true);
         yield return new WaitForSeconds(3.0f);
         yield return StartCoroutine(zoomContainer.ZoomInScreen());
         SceneManager.LoadScene(SceneContextHandler.Instance.GetIndexOfScene(gameSceneName));
+        EventBroker.onPointerTriggerLoad?.Invoke(false);
         AudioManager.Instance.PlayPrimaryMusic(MusicType.DIGESTIVE_BISCUIT_GAME);
     }
 

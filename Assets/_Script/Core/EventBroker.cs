@@ -25,4 +25,9 @@ public static class EventBroker
     public static Action<bool> onGamePaused;
     public static Action onGameRestarted;
     #endregion
+
+    #region POINTER EVENTS
+    public static Action<bool> onPointerTriggerLoad;
+    //public static Action<bool> onPointerEnterGame;
+    #endregion
 }

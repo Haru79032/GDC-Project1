@@ -51,6 +51,9 @@ TagManager:
   - name: Foreground
     uniqueID: 245120445
     locked: 0
+  - name: Pointer
+    uniqueID: 4120303847
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []

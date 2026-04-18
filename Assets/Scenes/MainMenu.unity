@@ -1432,7 +1432,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 10, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &769736839
 MonoBehaviour:
@@ -1481,8 +1481,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2267,13 +2267,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1155452808}
   - component: {fileID: 1155452807}
+  - component: {fileID: 1155452809}
   m_Layer: 0
-  m_Name: NormalPointer
+  m_Name: FakePointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1155452807
 SpriteRenderer:
   serializedVersion: 2
@@ -2319,8 +2320,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -174663449
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5942868359347332598, guid: 4888176aee62a91489ee37dfe205c35f, type: 3}
@@ -2348,6 +2349,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1155452809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155452806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d6086594170aa4196ff858723347e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakePointer
 --- !u!1 &1285512451
 GameObject:
   m_ObjectHideFlags: 0
@@ -3136,7 +3149,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 624592061}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3147,7 +3160,7 @@ Canvas:
   m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 7148547
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1651529071
@@ -3848,13 +3861,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2030068608}
+  - component: {fileID: 2030068609}
   m_Layer: 0
   m_Name: PointerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2030068608
 Transform:
   m_ObjectHideFlags: 0
@@ -3870,6 +3884,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2030068609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030068607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37a5554c85aa59419ba58b2a63b54ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointerManager
+  pointer: {fileID: 1155452809}
+  normalPointerLibrary: {fileID: 11400000, guid: 516d4730634c1034a8f0a339dc891ce3, type: 2}
+  largePointerLibrary: {fileID: 11400000, guid: 3ffbbc911736abe41b06d870de7060b4, type: 2}
 --- !u!1001 &8600336528295132149
 PrefabInstance:
   m_ObjectHideFlags: 0
