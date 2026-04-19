@@ -28,6 +28,8 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
+        EventBroker.onTakingDamage += OnPlayerTakeDamage;
+        EventBroker.onPointerOpenGuide += OnPlayerOpenGuideNotes;
         EventBroker.onBulletShot += OnBulletIsShot;
         EventBroker.somethingIsShot += OnDestroyingProjectile;
         EventBroker.somethingIsBlocked += OnBlockingProjectile;
@@ -37,6 +39,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnDisable()
     {
+        EventBroker.onTakingDamage -= OnPlayerTakeDamage;
         EventBroker.onBulletShot -= OnBulletIsShot;
         EventBroker.somethingIsShot -= OnDestroyingProjectile;
         EventBroker.somethingIsBlocked -= OnBlockingProjectile;
@@ -167,5 +170,18 @@ public class AudioManager : MonoBehaviour
     private void OnBulletIsShot()
     {
         PlaySFX(SFXType.SHOOTING_SCRIPT_IMPACT);
+    }
+
+    private void OnPlayerTakeDamage(int currentHP)
+    {
+        PlaySFX(SFXType.PLAYER_HURT_IMPACT);
+    }
+
+    private void OnPlayerOpenGuideNotes(bool isOpening)
+    {
+        if (isOpening)
+        {
+            PlaySFX(SFXType.GUIDE_OPENING);
+        }
     }
 }

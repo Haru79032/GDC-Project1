@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PauseCanvas : MonoBehaviour
 {
     [SerializeField] private Canvas pauseCanvas;
     [SerializeField] private Canvas settingsCanvas;
+    [SerializeField] private Canvas guideCanvas;
 
     /*private void OnEnable()
     {
@@ -56,9 +58,13 @@ public class PauseCanvas : MonoBehaviour
         }
     }
 
-    public void OpenInfo()
+    public void OpenGuides()
     {
-        
+        if (guideCanvas != null)
+        {
+            guideCanvas.gameObject.SetActive(true);
+        }
+        EventBroker.onPointerOpenGuide?.Invoke(true);
     }
 
     public void ExitGame()

@@ -43,11 +43,15 @@ public class PointerManager : MonoBehaviour
     private void OnEnable()
     {
         EventBroker.onPointerTriggerLoad += OnPointerIsLoading;
+        EventBroker.onPointerOpenGuide += OnPlayerOpenGuideNotes;
+        EventBroker.onPointerCanClick += OnPointerCanClickSomething;
     }
 
     private void OnDisable()
     {
         EventBroker.onPointerTriggerLoad -= OnPointerIsLoading;
+        EventBroker.onPointerOpenGuide -= OnPlayerOpenGuideNotes;
+        EventBroker.onPointerCanClick -= OnPointerCanClickSomething;
     }
 
     private void OnPointerIsLoading(bool isLoading)
@@ -62,6 +66,35 @@ public class PointerManager : MonoBehaviour
             pointer.GetComponent<SpriteRenderer>().sprite = normalPointerLibrary.GetPointer(PointerType.WAITING_POINTER);
         }
         else
+        {
+            pointer.GetComponent<SpriteRenderer>().sprite = normalPointerLibrary.GetPointer(PointerType.NORMAL_POINTER);
+        }
+    }
+
+    private void OnPointerCanClickSomething(bool isOnSomethingClickable)
+    {
+        if (pointer == null)
+        {
+            return;
+        }
+
+        if (isOnSomethingClickable)
+        {
+            pointer.GetComponent<SpriteRenderer>().sprite = normalPointerLibrary.GetPointer(PointerType.MOUSE_POINTER);
+        }
+        else
+        {
+            pointer.GetComponent<SpriteRenderer>().sprite = normalPointerLibrary.GetPointer(PointerType.NORMAL_POINTER);
+        }
+    }
+
+    private void OnPlayerOpenGuideNotes(bool isOpening)
+    {
+        if (pointer == null)
+        {
+            return;
+        }
+        if (!isOpening)
         {
             pointer.GetComponent<SpriteRenderer>().sprite = normalPointerLibrary.GetPointer(PointerType.NORMAL_POINTER);
         }

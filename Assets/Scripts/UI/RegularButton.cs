@@ -5,8 +5,8 @@ public abstract class RegularButton : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        TriggerSFX();
+        OnPointerEntering();
     }
 
-    protected abstract void TriggerSFX();
+    protected abstract void OnPointerEntering();
 }

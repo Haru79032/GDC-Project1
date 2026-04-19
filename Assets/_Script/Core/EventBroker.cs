@@ -28,6 +28,8 @@ public static class EventBroker
 
     #region POINTER EVENTS
     public static Action<bool> onPointerTriggerLoad;
+    public static Action<bool> onPointerOpenGuide;
+    public static Action<bool> onPointerCanClick;
     //public static Action<bool> onPointerEnterGame;
     #endregion
 }
